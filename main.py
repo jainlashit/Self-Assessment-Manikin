@@ -22,13 +22,11 @@ def load_emotion(index):
 emotionFrame = Frame(root)
 emotionFrame.pack()
 
-arousalIndex = -1
 arousalFrame = Frame(root)
 arousalFrame.pack()
 arousalButton = [None]*scale_num
 arousalPhoto = [None]*scale_num
 
-valenceIndex = -1
 valenceFrame = Frame(root)
 valenceFrame.pack()
 valenceButton = [None]*scale_num
@@ -39,33 +37,23 @@ emotionLabel = Label(emotionFrame, image=emotionPhoto)
 emotionLabel.pack()
 
 
-def arousal(index):
-    global arousalIndex
-    arousalIndex = index
-    print("Button Number " + str(index+1))
-    pass
-
-
-def valence(index):
-    global valenceIndex
-    valenceIndex = index
-    print("Button Number " + str(index+1))
-    pass
-
-
 def submit():
-    global fileIndex, emotionPhoto, emotionLabel, emotionFrame, valenceIndex, arousalIndex, valenceButton, arousalButton
-    emotionLabel.forget()
+    global fileIndex, emotionPhoto, emotionLabel, emotionFrame, valenceButton, arousalButton
+
     fileIndex += 1
-    emotionPhoto = load_emotion(fileIndex)
-    emotionLabel = Label(emotionFrame, image=emotionPhoto)
-    emotionLabel.pack()
-    # valenceButton[valenceIndex].deselect()
-    # arousalButton[arousalIndex].deselect()
-    valenceVar.set(11)
-    arousalVar.set(11)
-    valenceIndex = -1
-    arousalIndex = -1
+
+    if fileIndex >= len(emotionFiles):
+        root.destroy()
+    else:
+        emotionLabel.forget()
+        emotionPhoto = load_emotion(fileIndex)
+        emotionLabel = Label(emotionFrame, image=emotionPhoto)
+        emotionLabel.pack()
+
+    print("Arousal: ", arousalVar.get())
+    print("Valence: ", valenceVar.get())
+    valenceVar.set(0)
+    arousalVar.set(0)
 
 
 nextFrame = Frame(root)
@@ -79,15 +67,13 @@ valenceVar = IntVar()
 for i in range(scale_num):
     arousalFile = "images/_arousal/arousal-" + str(i+1) + ".png"
     arousalPhoto[i] = ImageTk.PhotoImage(file=arousalFile)
-    arousalButton[i] = Radiobutton(arousalFrame, variable=arousalVar, value=i+1, text="Arousal",
-                                   command=lambda index=i: arousal(index))
+    arousalButton[i] = Radiobutton(arousalFrame, variable=arousalVar, value=i+1, text="Arousal", image=arousalPhoto[i])
     arousalButton[i].pack(side=LEFT)
 
 for i in range(scale_num):
     valenceFile = "images/_valence/valence-" + str(i+1) + ".png"
     valencePhoto[i] = ImageTk.PhotoImage(file=valenceFile)
-    valenceButton[i] = Radiobutton(valenceFrame, variable=valenceVar, value=i+1, text="Valence",
-                                   command=lambda index=i: valence(index))
+    valenceButton[i] = Radiobutton(valenceFrame, variable=valenceVar, value=i+1, text="Valence", image=valencePhoto[i])
     valenceButton[i].pack(side=LEFT)
 
 root.mainloop()
