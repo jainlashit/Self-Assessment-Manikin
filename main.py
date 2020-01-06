@@ -6,6 +6,7 @@ scale_num = 9
 padding = 10
 
 root = Tk()
+root.attributes("-fullscreen", True)
 
 emotionFiles = ["happy.jpg", "contemptuous.jpg"]
 fileIndex = 0
