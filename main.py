@@ -58,7 +58,8 @@ def submit():
 
 nextFrame = Frame(root)
 nextFrame.pack()
-nextButton = Button(nextFrame, text="SUBMIT!", command=submit).pack()
+nextButton = Button(nextFrame, text="SUBMIT!", command=submit)
+nextButton.pack()
 
 arousalVar = IntVar()
 valenceVar = IntVar()
@@ -67,13 +68,13 @@ valenceVar = IntVar()
 for i in range(scale_num):
     arousalFile = "images/_arousal/arousal-" + str(i+1) + ".png"
     arousalPhoto[i] = ImageTk.PhotoImage(file=arousalFile)
-    arousalButton[i] = Radiobutton(arousalFrame, variable=arousalVar, value=i+1, text="Arousal", image=arousalPhoto[i])
+    arousalButton[i] = Radiobutton(arousalFrame, variable=arousalVar, value=i+1, indicatoron=0, image=arousalPhoto[i])
     arousalButton[i].pack(side=LEFT)
 
 for i in range(scale_num):
     valenceFile = "images/_valence/valence-" + str(i+1) + ".png"
     valencePhoto[i] = ImageTk.PhotoImage(file=valenceFile)
-    valenceButton[i] = Radiobutton(valenceFrame, variable=valenceVar, value=i+1, text="Valence", image=valencePhoto[i])
+    valenceButton[i] = Radiobutton(valenceFrame, variable=valenceVar, value=i+1, indicatoron=0, image=valencePhoto[i])
     valenceButton[i].pack(side=LEFT)
 
 root.mainloop()
