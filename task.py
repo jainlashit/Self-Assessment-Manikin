@@ -86,7 +86,8 @@ class TaskFrame:
         return ImageTk.PhotoImage(image=photo)
 
 
-root = Tk()
-frame = TaskFrame(root)
-frame.pack()
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    frame = TaskFrame(root)
+    frame.pack()
+    root.mainloop()

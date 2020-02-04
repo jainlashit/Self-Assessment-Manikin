@@ -4,7 +4,7 @@ from PIL import ImageTk
 
 
 class IntroFrame(object):
-	def __init__(self, root, files, taskFrame=None):
+	def __init__(self, root, files, taskFrame):
 		self.root = root
 		self.index = 0
 
@@ -44,7 +44,7 @@ class IntroFrame(object):
 		self.index += 1
 		if self.index == len(self.files):
 			self.destroy()
-			# self.taskFrame.pack()
+			self.taskFrame.pack()
 		else:
 			self.previousButton['state'] = NORMAL
 			self.mainLabel.destroy()
@@ -64,7 +64,8 @@ class IntroFrame(object):
 		return ImageTk.PhotoImage(image=photo)
 
 
-myRoot = Tk()
-files = ["images/first.png", "images/second.png"]
-firstFrame = IntroFrame(myRoot, files)
-myRoot.mainloop()
+if __name__ == "__main__":
+	myRoot = Tk()
+	files = ["images/first.png", "images/second.png"]
+	firstFrame = IntroFrame(myRoot, files)
+	myRoot.mainloop()
