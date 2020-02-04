@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image
 from PIL import ImageTk
+import glob
 
 
 class TaskFrame:
@@ -10,7 +11,7 @@ class TaskFrame:
         self.scale = 9
         self.padding = 10
 
-        self.emotionFiles = ["happy.jpg", "contemptuous.jpg"]
+        self.emotionFiles = glob.glob("radboud/*.jpg")
         self.fileIndex = 0
 
         self.emotionFrame = Frame(root)
