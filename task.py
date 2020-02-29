@@ -1,17 +1,20 @@
 from tkinter import *
 from PIL import Image
 from PIL import ImageTk
+from random import shuffle
 import glob
 
 
 class TaskFrame:
-    def __init__(self, root):
+    def __init__(self, root, outputFile=None):
         self.root = root
         # SAM Scale taken as 9
         self.scale = 9
         self.padding = 10
 
+        self.outputFile = outputFile
         self.emotionFiles = glob.glob("radboud/*.jpg")
+        shuffle(self.emotionFiles)
         self.fileIndex = 0
 
         self.emotionFrame = Frame(root)
@@ -74,8 +77,14 @@ class TaskFrame:
             self.emotionLabel = Label(self.emotionFrame, image=self.emotionPhoto)
             self.emotionLabel.pack()
 
-        print("Arousal: ", self.arousalVar.get())
-        print("Valence: ", self.valenceVar.get())
+        entry = self.emotionFiles[self.fileIndex] + ',' + str(self.arousalVar.get()) + ',' + str(self.valenceVar.get())
+
+        if self.outputFile:
+            self.outputFile.write(entry+'\n')
+            self.outputFile.flush()
+
+        print(entry)
+
         self.valenceVar.set(0)
         self.arousalVar.set(0)
 
