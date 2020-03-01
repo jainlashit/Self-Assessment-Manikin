@@ -66,11 +66,10 @@ class TaskFrame:
     def submit(self):
         if self.valenceVar.get() == 0 or self.arousalVar.get() == 0:
             return
-        else:
-            self.fileIndex += 1
 
         if self.fileIndex >= len(self.emotionFiles):
             self.root.destroy()
+            return
         else:
             self.emotionLabel.forget()
             self.emotionPhoto = self.load_emotion(self.emotionFiles[self.fileIndex], 0.4)
@@ -87,6 +86,7 @@ class TaskFrame:
 
         self.valenceVar.set(0)
         self.arousalVar.set(0)
+        self.fileIndex += 1
 
     @staticmethod
     def load_emotion(file, scale=1):
