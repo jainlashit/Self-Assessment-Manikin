@@ -67,10 +67,6 @@ class TaskFrame:
         if self.valenceVar.get() == 0 or self.arousalVar.get() == 0:
             return
 
-        if self.fileIndex >= len(self.emotionFiles):
-            self.root.destroy()
-            return
-
         entry = self.emotionFiles[self.fileIndex] + ',' + str(self.arousalVar.get()) + ',' + str(self.valenceVar.get())
 
         if self.outputFile:
@@ -82,10 +78,15 @@ class TaskFrame:
         self.arousalVar.set(0)
         self.fileIndex += 1
 
+        if self.fileIndex == len(self.emotionFiles):
+            self.root.destroy()
+            return
+
         self.emotionLabel.forget()
         self.emotionPhoto = self.load_emotion(self.emotionFiles[self.fileIndex], 0.4)
         self.emotionLabel = Label(self.emotionFrame, image=self.emotionPhoto)
         self.emotionLabel.pack()
+
 
     @staticmethod
     def load_emotion(file, scale=1):
