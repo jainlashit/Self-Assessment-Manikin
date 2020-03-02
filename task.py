@@ -70,23 +70,22 @@ class TaskFrame:
         if self.fileIndex >= len(self.emotionFiles):
             self.root.destroy()
             return
-        else:
-            self.emotionLabel.forget()
-            self.emotionPhoto = self.load_emotion(self.emotionFiles[self.fileIndex], 0.4)
-            self.emotionLabel = Label(self.emotionFrame, image=self.emotionPhoto)
-            self.emotionLabel.pack()
 
         entry = self.emotionFiles[self.fileIndex] + ',' + str(self.arousalVar.get()) + ',' + str(self.valenceVar.get())
 
         if self.outputFile:
             self.outputFile.write(entry+'\n')
             self.outputFile.flush()
-
         print(entry)
 
         self.valenceVar.set(0)
         self.arousalVar.set(0)
         self.fileIndex += 1
+
+        self.emotionLabel.forget()
+        self.emotionPhoto = self.load_emotion(self.emotionFiles[self.fileIndex], 0.4)
+        self.emotionLabel = Label(self.emotionFrame, image=self.emotionPhoto)
+        self.emotionLabel.pack()
 
     @staticmethod
     def load_emotion(file, scale=1):
